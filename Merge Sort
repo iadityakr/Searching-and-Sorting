@@ -1,0 +1,43 @@
+class Solution
+{
+    void merge(int arr[], int low, int mid, int high)
+    {
+         // Your code here
+         int first = low;
+         int sec = mid+1;
+         int [] temp = new int[high - low + 1];
+         int idx = 0;
+         
+         while(first <= mid && sec <= high){
+             if(arr[first] <= arr[sec]){
+                 temp[idx++] = arr[first];
+                 first++;
+             }else{
+                 temp[idx++] = arr[sec];
+                 sec++;
+             }
+         }
+         while(first <= mid){
+             temp[idx++] = arr[first];
+             first++;
+         }
+         while(sec <= high){
+             temp[idx++] = arr[sec];
+             sec++;
+         }
+         for(int i=low; i <= high; i++){
+             arr[i] = temp[i-low];
+         }
+    }
+    void mergeSort(int arr[], int low, int high)
+    {
+        //code here
+        if(low >= high) return;
+        
+        int mid = (low+high) / 2;
+        mergeSort(arr, low, mid);
+        mergeSort(arr, mid+1, high);
+        
+        merge(arr, low, mid, high);
+    }
+}
